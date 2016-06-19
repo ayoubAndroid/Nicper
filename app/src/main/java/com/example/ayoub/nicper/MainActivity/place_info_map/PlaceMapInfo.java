@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,9 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
@@ -42,6 +46,8 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_map_info);
 
+        initialise();
+        setValue();
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -51,10 +57,45 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void initialise(){
+        // get the object from the MapActivity
         Intent i = getIntent();
         placeInfo = (PlaceInfo) i.getSerializableExtra("placeInfo");
         currentLocation = new LatLng(placeInfo.getLat(), placeInfo.getLng());
 
+        owner = (TextView) findViewById(R.id.owner);
+        price = (TextView) findViewById(R.id.price);
+        priceInfo = (TextView) findViewById(R.id.priceInfo);
+        availability = (TextView) findViewById(R.id.availability);
+        availabilityInfo = (TextView) findViewById(R.id.infoAvailability);
+    }
+
+    private void setValue() {
+        owner.setText(placeInfo.getUsername());
+        price.setText(""+placeInfo.getPriceHour()+" per hour");
+
+        String priceInfoString = placeInfo.getPriceInfo();
+        if(priceInfoString.isEmpty()){
+            priceInfo.setText("The owner did not create a price description");
+        }else{
+            priceInfo.setText(priceInfoString);
+        }
+
+        String dispo = "";
+        List<String> listDayTemp = new ArrayList<String>(placeInfo.getListDay());
+        List<String> listTimeTemp = new ArrayList<String>(placeInfo.getListTime());
+        for(int i = 0; i < listDayTemp.size(); i++){
+            String day = listDayTemp.get(i);
+            String time = listTimeTemp.get(i);
+            dispo += day+" : "+ time + "\n";
+        }
+        availability.setText(dispo);
+
+        String availabilityInfoString = placeInfo.getTimeInfo();
+        if(availabilityInfoString.isEmpty()){
+            availabilityInfo.setText("The owner did not create a price description");
+        }else {
+            availabilityInfo.setText(availabilityInfoString);
+        }
     }
 
     @Override
