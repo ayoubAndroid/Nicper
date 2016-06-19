@@ -1,0 +1,287 @@
+<LinearLayout android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FAFAFA">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appBar"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FAFAFA">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FAFAFA"
+            android:id="@+id/linear1"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="match_parent"
+                android:background="#CCff8000"
+                android:text="Help to create a post"
+                android:textColor="#ffffff"
+                android:id="@+id/buttonHelp"
+                android:layout_below="@+id/appBar"
+                android:elevation="0dp"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FAFAFA"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="6dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="36dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="15dp"
+                android:text="1) Choose the price per hour for the place\n you want to rent"/>
+           <com.rey.material.widget.Slider
+                style="@style/Material.Widget.Slider"
+                android:layout_width="match_parent"
+               android:layout_marginLeft="24dp"
+               android:layout_marginRight="24dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:sl_minValue="0"
+               android:id="@+id/sliderPrice"
+               app:sl_discreteMode="true"
+               app:sl_maxValue="100"
+                app:sl_primaryColor="@color/colorAccent"
+                app:sl_secondaryColor="#265a55"
+                app:sl_value="20"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1sp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="6dp"
+                android:background="#c0c0c0"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="12dp"
+                android:text="2) Add addtional info about the price (Optional)\n Example: If take 2h or plus it will be only 10$"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/priceInfo"
+                    android:textSize="16dp"
+                    android:hint="Price info"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginTop="16dp"
+                android:background="#999999"/>
+            <TextView
+                android:layout_margin="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avaibility"
+                android:textColor="@color/colorAccent"
+                android:textSize="18dp"/>
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="36dp"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="15dp"
+            android:text="3) Select the day of the week when the place is avalaible"
+                android:layout_marginBottom="6dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FAFAFA"
+                android:orientation="horizontal">
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:id="@+id/allDay"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="All day of the week"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/layoutCheckBox"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutDayWeek"
+                android:background="#FAFAFA"
+                android:orientation="horizontal">
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:id="@+id/dimache"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="D"/>
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/lundi"
+                    android:text="L"/>
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mardi"
+                    android:gravity="center"
+                    android:text="Ma"/>
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:id="@+id/mercredi"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Me"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutDayWeek"
+                android:background="#FAFAFA"
+                android:id="@+id/layoutDayWeek2"
+                android:orientation="horizontal">
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/jeudi"
+                    android:text="J"/>
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/vendredi"
+                    android:gravity="center"
+                    android:text="V"/>
+                <com.rey.material.widget.CheckBox
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:id="@+id/samedi"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="S"/>
+
+            </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1sp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="6dp"
+                android:background="#c0c0c0"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="12dp"
+                android:text="4) Select the time Interval: Choose a time and then affect it to the day you want."
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="choose Time"
+                android:id="@+id/chooseTime"
+                android:layout_gravity="center"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="26dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="12dp"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/placeInfo"
+                    android:textSize="16dp"
+                    android:hint="Place and avalaibility info"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+            <Button
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:background="@color/colorAccent"
+                android:text="Post"
+                android:id="@+id/postButton"
+                android:textColor="#ffffff"
+                android:layout_below="@+id/linear1"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
