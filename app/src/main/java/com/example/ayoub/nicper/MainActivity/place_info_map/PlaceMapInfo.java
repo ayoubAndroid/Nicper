@@ -10,6 +10,7 @@ import com.example.ayoub.nicper.R;
 
 public class PlaceMapInfo extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
