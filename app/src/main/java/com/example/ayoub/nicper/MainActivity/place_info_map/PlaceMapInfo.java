@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,18 +36,21 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
     private TextView priceInfo;
     private TextView availability;
     private TextView availabilityInfo;
-    private MapFragment mapFragment;
-    private double lat, lng;
-    private GoogleMap mMap;
     private LatLng currentLocation;
     private PlaceInfo placeInfo;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_map_info);
 
+        setUpToolBar();
+
+        //Initialise the UI component
         initialise();
+
+        //Set the value of the PlaceInfo object to the UI
         setValue();
 
 
@@ -56,15 +60,25 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    private void setUpToolBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        getSupportActionBar().setTitle("Place Info");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
     private void initialise(){
         // get the object from the MapActivity
         Intent i = getIntent();
         placeInfo = (PlaceInfo) i.getSerializableExtra("placeInfo");
         currentLocation = new LatLng(placeInfo.getLat(), placeInfo.getLng());
 
+
+
         owner = (TextView) findViewById(R.id.owner);
         price = (TextView) findViewById(R.id.price);
-        priceInfo = (TextView) findViewById(R.id.priceInfo);
+        priceInfo = (TextView) findViewById(R.id.infoPrice);
         availability = (TextView) findViewById(R.id.availability);
         availabilityInfo = (TextView) findViewById(R.id.infoAvailability);
     }
@@ -103,7 +117,6 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.addMarker(new MarkerOptions()
                             .position(currentLocation));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
-        this.mMap = googleMap;
     }
 
     @Override
