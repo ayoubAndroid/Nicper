@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.ayoub.nicper.Object.Map.PlaceInfo;
 import com.example.ayoub.nicper.R;
+import com.example.ayoub.nicper.StringFormater;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -94,12 +95,13 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
             priceInfo.setText(priceInfoString);
         }
 
+        StringFormater stringFormater = new StringFormater();
         String dispo = "";
         List<String> listDayTemp = new ArrayList<String>(placeInfo.getListDay());
         List<String> listTimeTemp = new ArrayList<String>(placeInfo.getListTime());
         for(int i = 0; i < listDayTemp.size(); i++){
             String day = listDayTemp.get(i);
-            String time = listTimeTemp.get(i);
+            String time = stringFormater.availabilityFormater(listTimeTemp.get(i));
             dispo += day+" : "+ time + "\n";
         }
         availability.setText(dispo);
