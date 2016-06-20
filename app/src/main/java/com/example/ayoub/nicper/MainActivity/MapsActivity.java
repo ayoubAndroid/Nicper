@@ -177,7 +177,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public View getInfoContents(Marker marker) {
                 View v = getLayoutInflater().inflate(R.layout.map_info, null);
-                v.setLayoutParams(new RelativeLayout.LayoutParams(700, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                v.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
 
 
 

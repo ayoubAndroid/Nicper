@@ -23,7 +23,9 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_message"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBar"
         android:layout_alignParentLeft="true"
@@ -38,7 +40,7 @@
         android:background="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_height="58dp"
-        android:layout_toLeftOf="@+id/view"
+        android:layout_toLeftOf="@+id/send"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="6dp"
         android:layout_marginBottom="12dp"
@@ -47,23 +49,23 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/priceInfo"
+            android:id="@+id/message"
             android:layout_margin="6dp"
             android:textSize="16dp"
             android:background="@null"
-            android:hint="Price info" />
+            android:hint="Message" />
 
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_send_white_36dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:fab_backgroundColor="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="12dp"
         android:layout_marginRight="6dp"
-        android:id="@+id/view" />
+        android:id="@+id/send" />
 
 </RelativeLayout>
