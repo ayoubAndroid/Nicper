@@ -236,27 +236,50 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
+                android:textColor="@color/cardview_dark_background"
                 android:layout_marginLeft="26dp"
                 android:layout_marginTop="12dp"
                 android:text="4) Select the time Interval: Choose a time and then affect it to the day you want."
                 />
-            <Button
-                android:layout_width="match_parent"
+            <com.andexert.library.RippleView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="choose Time"
-                android:id="@+id/chooseTime"
-                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
+                app:rv_alpha="250"
+                android:id="@+id/rippleViewPick"
+                app:rv_rippleDuration="135"
+                app:rv_color="@color/colorPrimaryDark"
                 android:layout_marginLeft="26dp"
                 android:layout_marginRight="26dp"
-                android:textColor="#ffffff"
-                android:background="@color/colorPrimary"
-                android:layout_marginTop="12dp"/>
+                android:clickable="false"
+                android:layout_marginTop="12dp"
+                android:layout_alignBottom="@+id/scrollView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                rv_centered="true">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="choose Time"
+                    android:id="@+id/chooseTime"
+                    android:layout_gravity="center"
+                    android:textColor="#ffffff"
+                    android:background="@color/colorPrimary"/>
+                </com.andexert.library.RippleView>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginTop="6dp"
+                android:textSize="15dp"
+                android:text="5) Add info about the place (Optional)\n Example: you have to kill a muslim"/>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginLeft="26dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="6dp"
                 android:layout_height="wrap_content">
                 <EditText
                     android:layout_width="match_parent"
@@ -268,15 +291,30 @@
 
         </LinearLayout>
 
-            <Button
+            <com.andexert.library.RippleView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:rv_alpha="250"
+                android:layout_below="@+id/linear1"
+                android:id="@+id/rippleViewPost"
+                app:rv_rippleDuration="135"
+                app:rv_color="#00695C"
+                android:clickable="false"
                 android:layout_marginTop="16dp"
+                android:layout_alignBottom="@+id/scrollView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                rv_centered="true">
+
+            <Button
                 android:layout_width="match_parent"
                 android:background="@color/colorAccent"
                 android:text="Post"
                 android:id="@+id/postButton"
                 android:textColor="#ffffff"
-                android:layout_below="@+id/linear1"
                 android:layout_height="wrap_content" />
+            </com.andexert.library.RippleView>
 
 
         </RelativeLayout>

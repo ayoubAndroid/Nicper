@@ -1,4 +1,5 @@
 package com.example.ayoub.nicper.MainActivity.post_address;
+import com.andexert.library.RippleView;
 import com.example.ayoub.nicper.GoogleAutoComplete.Log;
 import com.example.ayoub.nicper.GoogleAutoComplete.SampleActivityBase;
 import com.example.ayoub.nicper.Object.Map.*;
@@ -83,40 +84,42 @@ public class ChooseMapAddressActivity extends SampleActivityBase implements Plac
 
 
         //Button post
-        buttonPost = (Button) findViewById(R.id.postAdress);
-        buttonPost.setOnClickListener(new View.OnClickListener() {
+        final RippleView rippleView = (RippleView) findViewById(R.id.rippleView);
+        rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+
             @Override
-            public void onClick(View v) {
-                 if(latLngAddressChoose != null) {
+            public void onComplete(RippleView rippleView) {
+                if(latLngAddressChoose != null) {
 
-                     userReference.child(firebaseUser.getUid()).child("profil").addListenerForSingleValueEvent(new ValueEventListener() {
-                         @Override
-                         public void onDataChange(DataSnapshot dataSnapshot) {
-                             user = dataSnapshot.getValue(User.class);
-                             maxPost = user.getPost();
-                             if (maxPost < 2 && !countryName.isEmpty()){
-                                 Intent intent = new Intent(ChooseMapAddressActivity.this, PlaceInfoFormActivity.class);
-                                 Bundle b = new Bundle();
-                                 b.putDouble("Lat", latLngAddressChoose.latitude);
-                                 b.putDouble("Long", latLngAddressChoose.longitude);
-                                 b.putInt("Max", maxPost);
-                                 intent.putExtra("Country", countryName);
-                                 intent.putExtras(b);
-                                 startActivity(intent);
-                             } else {
-                                 showMessage("You have exceeded the limit");
-                             }
-                         }
+                    userReference.child(firebaseUser.getUid()).child("profil").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            user = dataSnapshot.getValue(User.class);
+                            maxPost = user.getPost();
+                            if (maxPost < 2 && !countryName.isEmpty()){
+                                Intent intent = new Intent(ChooseMapAddressActivity.this, PlaceInfoFormActivity.class);
+                                Bundle b = new Bundle();
+                                b.putDouble("Lat", latLngAddressChoose.latitude);
+                                b.putDouble("Long", latLngAddressChoose.longitude);
+                                b.putInt("Max", maxPost);
+                                intent.putExtra("Country", countryName);
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            } else {
+                                showMessage("You have exceeded the limit");
+                            }
+                        }
 
-                         @Override
-                         public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                         }
-                     });
-                 }else {
-                     showMessage("Please selected a location first");
-                 }
+                        }
+                    });
+                }else {
+                    showMessage("Please selected a location first");
+                }
             }
+
         });
 
     }

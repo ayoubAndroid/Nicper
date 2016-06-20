@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.example.ayoub.nicper.MainActivity.MapsActivity;
 import com.example.ayoub.nicper.Object.AppGeneral.User;
 import com.example.ayoub.nicper.dialog.TimePickerFragment;
@@ -66,6 +67,7 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
     private Button buttonTime;
     private Button postButton;
     private android.widget.EditText placeInfoEdiText, priceInfoEditText;
+    private RippleView post, time;
 
 
     //Place information
@@ -96,6 +98,9 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_info);
 
+        post = (RippleView) findViewById(R.id.rippleViewPost);
+        time = (RippleView) findViewById(R.id.rippleViewPick);
+
         userId = firebaseUser.getUid();
         userReference = userReference.child(firebaseUser.getUid()).child("profil");
         userReference.addValueEventListener(new ValueEventListener() {
@@ -124,17 +129,16 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
         checkBoxListner();
 
         newFragment = new TimePickerFragment();
-        buttonTime.setOnClickListener(new View.OnClickListener() {
+        time.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
+            public void onComplete(RippleView rippleView) {
                 showFragment();
-                //newFragment.show(getFragmentManager(),"Choose the first interval");
             }
         });
 
-        postButton.setOnClickListener(new View.OnClickListener() {
+        post.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
+            public void onComplete(RippleView rippleView) {
                 price = slider.getValue();
                 infoPrice = priceInfoEditText.getText().toString();
                 dispoInfo = placeInfoEdiText.getText().toString();

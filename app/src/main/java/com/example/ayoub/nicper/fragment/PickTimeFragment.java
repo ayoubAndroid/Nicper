@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.example.ayoub.nicper.MainActivity.post_address.PlaceInfoFormActivity;
 import com.example.ayoub.nicper.R;
 import com.rey.material.widget.CheckBox;
@@ -24,7 +25,7 @@ import java.util.List;
  * Created by Admin on 15/06/2016.
  */
 public class PickTimeFragment extends DialogFragment {
-    Button selectTime, finsh;
+    Button selectTime, finish;
     android.support.v7.widget.Toolbar toolbar;
 
     CheckBox selectAll, morningTime, nightTime;
@@ -39,11 +40,16 @@ public class PickTimeFragment extends DialogFragment {
     private  List<CheckBox> checkBoxesDay = new ArrayList<>();
     private List<String> listDayChoosed = new ArrayList<>();
     private PlaceInfoFormActivity placeInfoFormActivity;
+    private RippleView rippleView, rippleView2;
+
 
     public PickTimeFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.select_time_fragment, container);
+
+        rippleView = (RippleView) view.findViewById(R.id.rippleViewPick);
+        rippleView2 = (RippleView) view.findViewById(R.id.rippleViewFinish);
 
         placeInfoFormActivity = (PlaceInfoFormActivity) getActivity();
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -51,18 +57,16 @@ public class PickTimeFragment extends DialogFragment {
         toolbar = (Toolbar) view.findViewById(R.id.toolbarFragment);
         toolbar.setTitle("Time Picker");
 
-        selectTime = (Button) view.findViewById(R.id.buttonSelectDay);
-        selectTime.setOnClickListener(new View.OnClickListener() {
+        rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
+            public void onComplete(RippleView rippleView) {
                 checkSelection();
             }
         });
 
-        finsh = (Button) view.findViewById(R.id.finish);
-        finsh.setOnClickListener(new View.OnClickListener() {
+        rippleView2.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
+            public void onComplete(RippleView rippleView) {
                 dismiss();
             }
         });
@@ -116,150 +120,7 @@ public class PickTimeFragment extends DialogFragment {
         });
 
 
-        checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox1.getText().toString());
-            }
-        });
-        checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox2.getText().toString());
-            }
-        });
-        checkBox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox3.getText().toString());
-            }
-        });
-        checkBox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox4.getText().toString());
-            }
-        });
-        checkBox5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox5.getText().toString());
-            }
-        });
-        checkBox6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox6.getText().toString());
-            }
-        });
-        checkBox7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox7.getText().toString());
-            }
-        });
-        checkBox8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox8.getText().toString());
-            }
-        });
-        checkBox9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox9.getText().toString());
-            }
-        });
-        checkBox10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox10.getText().toString());
-            }
-        });
-        checkBox11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox11.getText().toString());
-            }
-        });
-        checkBox12.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox12.getText().toString());
-            }
-        });
-        checkBox13.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox13.getText().toString());
-            }
-        });
-        checkBox14.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox14.getText().toString());
-            }
-        });
-        checkBox15.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox15.getText().toString());
-            }
-        });
-        checkBox16.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox16.getText().toString());
-            }
-        });
-        checkBox17.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox17.getText().toString());
-            }
-        });
-        checkBox18.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox18.getText().toString());
-            }
-        });
-        checkBox19.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox19.getText().toString());
-            }
-        });
-        checkBox20.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox20.getText().toString());
-            }
-        });
-        checkBox21.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox21.getText().toString());
-            }
-        });
-        checkBox22.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox22.getText().toString());
-            }
-        });
-        checkBox23.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox23.getText().toString());
-            }
-        });
-        checkBox24.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageList(isChecked, checkBox24.getText().toString());
-            }
-        });
+
 
 
         return view;
@@ -393,6 +254,11 @@ public class PickTimeFragment extends DialogFragment {
 
     void checkSelection(){
         //Create a hour interval
+
+        for(int i =0; i < checkBoxes.size(); i++){
+            CheckBox checkBox = checkBoxes.get(i);
+            manageList(checkBox.isChecked(), checkBox.getText().toString());
+        }
         String hour = "";
         for(int i =0; i < listHeure.size(); i++){
             hour  = hour+listHeure.get(i)+ " ";
@@ -410,8 +276,8 @@ public class PickTimeFragment extends DialogFragment {
 
         //Show the finish button
         if(listDayChoosed.size() == 0){
-            selectTime.setVisibility(View.GONE);
-            finsh.setVisibility(View.VISIBLE);
+            rippleView.setVisibility(View.GONE);
+            rippleView2.setVisibility(View.VISIBLE);
         }
 
     }

@@ -118,7 +118,7 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         googleMap.addMarker(new MarkerOptions()
                             .position(currentLocation));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 17));
     }
 
     @Override

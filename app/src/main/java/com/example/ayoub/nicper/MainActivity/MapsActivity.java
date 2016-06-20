@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.example.ayoub.nicper.MainActivity.place_info_map.PlaceMapInfo;
 import com.example.ayoub.nicper.MainActivity.post_address.ChooseMapAddressActivity;
 import com.example.ayoub.nicper.Object.Map.PlaceInfo;
 import com.example.ayoub.nicper.R;
+import com.example.ayoub.nicper.StringFormater;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -59,19 +61,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         GoogleApiClient.OnConnectionFailedListener{
 
     private GoogleMap mMap;
-    private FirebaseUser firebaseUser;
     private Toolbar toolbar;
     private boolean snackBarWelcome = true;
     private FloatingActionButton post;
-    private String country= "Canada";
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference countryRef;
     private boolean mapready = false;
     private List<PlaceInfo> placeList;
     private HashMap<String, PlaceInfo> hmap = new HashMap<String, PlaceInfo>();
-    private int compteur  = 0;
     private String latLng = "45P-70";
-    private Marker lastMarker;
     private LatLng currentLocation;
 
 
@@ -79,8 +77,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         getExtraCodeSnackBar();
         placeList = new ArrayList();
@@ -114,9 +110,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.getValue() != null) {
                     PlaceInfo placeInfo = dataSnapshot.getValue(PlaceInfo.class);
-                    if (placeInfo.getListDay() != null){
-                        Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
-                    }
                     if(mapready) {
                         Marker marker = createMarker(placeInfo);
                         hmap.put(marker.getId(), placeInfo);
@@ -151,7 +144,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if(marker != null) {
-                    lastMarker =  marker;
                     float container_height = getResources().getDimension(R.dimen.DIP_300);
 
                     Projection projection = mMap.getProjection();
@@ -185,6 +177,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public View getInfoContents(Marker marker) {
                 View v = getLayoutInflater().inflate(R.layout.map_info, null);
+                v.setLayoutParams(new RelativeLayout.LayoutParams(700, RelativeLayout.LayoutParams.WRAP_CONTENT));
 
 
 
@@ -197,14 +190,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 TextView dispoText = (TextView) v.findViewById(R.id.dispo);
 
                 username.setText(placeInfo.getUsername());
-                price.setText(""+placeInfo.getPriceHour());
+                price.setText(""+placeInfo.getPriceHour()+ " per hour");
 
+                StringFormater stringFormater = new StringFormater();
                 String dispo = "";
                 List<String> listDayTemp = new ArrayList<String>(placeInfo.getListDay());
                 List<String> listTimeTemp = new ArrayList<String>(placeInfo.getListTime());
                 for(int i = 0; i < listDayTemp.size(); i++){
                     String day = listDayTemp.get(i);
-                    String time = listTimeTemp.get(i);
+                    String time = stringFormater.availabilityFormater(listTimeTemp.get(i));
                     dispo += day+" : "+ time + "\n";
                 }
                 dispoText.setText(dispo);
