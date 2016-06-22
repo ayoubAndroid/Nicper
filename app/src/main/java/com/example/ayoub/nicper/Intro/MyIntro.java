@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.example.ayoub.nicper.MainActivity.ActivityMap;
 import com.example.ayoub.nicper.MainActivity.MapsActivity;
 import com.example.ayoub.nicper.R;
 import com.github.paolorotolo.appintro.AppIntro2;
@@ -24,7 +25,7 @@ public class MyIntro  extends AppIntro2 {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // User is signed in
-            Intent intent = new Intent(MyIntro.this, MapsActivity.class);
+            Intent intent = new Intent(MyIntro.this, ActivityMap.class);
             startActivity(intent);
         } else {
             // No user is signed in

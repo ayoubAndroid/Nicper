@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ayoub.nicper.MainActivity.chat_message.ChatActivity;
 import com.example.ayoub.nicper.Object.Map.PlaceInfo;
 import com.example.ayoub.nicper.R;
 import com.example.ayoub.nicper.StringFormater;
@@ -40,6 +42,7 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
     private LatLng currentLocation;
     private PlaceInfo placeInfo;
     private Toolbar toolbar;
+    private Button sendMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,16 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        sendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlaceMapInfo.this, ChatActivity.class);
+                intent.putExtra("id", placeInfo.getUserId());
+                intent.putExtra("username", placeInfo.getUsername());
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void setUpToolBar() {
@@ -75,13 +88,13 @@ public class PlaceMapInfo extends AppCompatActivity implements OnMapReadyCallbac
         placeInfo = (PlaceInfo) i.getSerializableExtra("placeInfo");
         currentLocation = new LatLng(placeInfo.getLat(), placeInfo.getLng());
 
-
-
         owner = (TextView) findViewById(R.id.owner);
         price = (TextView) findViewById(R.id.price);
         priceInfo = (TextView) findViewById(R.id.infoPrice);
         availability = (TextView) findViewById(R.id.availability);
         availabilityInfo = (TextView) findViewById(R.id.infoAvailability);
+
+        sendMessage = (Button) findViewById(R.id.sendMessage);
     }
 
     private void setValue() {

@@ -4,12 +4,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ayoub.nicper.Adapter.MessagesAdapter;
 import com.example.ayoub.nicper.Object.Message.Message;
 import com.example.ayoub.nicper.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +31,7 @@ import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private FloatingActionButton send;
+    private Button send;
     private EditText message;
     private RecyclerView recyclerViewMessage;
     private Toolbar toolbar;
@@ -35,11 +41,12 @@ public class ChatActivity extends AppCompatActivity {
     private String otherUserId = "";
     private String otherUsername = "";
 
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("data");
     private DatabaseReference messageRefOther = root.child("users");
     private DatabaseReference messageRefMe = root.child("users");
 
     private List<Message> messageList = new ArrayList<>();
+    private  MessagesAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,11 @@ public class ChatActivity extends AppCompatActivity {
         getExtraBundle();
         setUpToolBar();
         initialiseUI();
+
+        recyclerViewMessage.setLayoutManager(new LinearLayoutManager(this));
+        //mRecyclerView.setItemAnimator(new SlideInOutLeftItemAnimator(mRecyclerView));
+        mAdapter = new MessagesAdapter(messageList, userId);
+        recyclerViewMessage.setAdapter(mAdapter);
 
         messageRefOther = messageRefOther.child(otherUserId).child("messages").child(userId);
         messageRefMe = messageRefMe.child(userId).child("messages").child(otherUserId);
@@ -66,16 +78,19 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        messageRefOther.addChildEventListener(new ChildEventListener() {
+        messageRefMe.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Message newMessage  = dataSnapshot.getValue(Message.class);
-                messageList.add(newMessage);
+                if(dataSnapshot.getValue() != null) {
+                    Message newMessage = dataSnapshot.getValue(Message.class);
+                    messageList.add(newMessage);
+                    recyclerViewMessage.scrollToPosition(messageList.size() - 1);
+                    mAdapter.notifyItemInserted(messageList.size() - 1);
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -94,11 +109,20 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
+
+
     }
 
     private void sendMessage(Message messageToSend) {
-        messageRefMe.push().setValue(messageToSend);
-        messageRefOther.push().setValue(messageToSend);
+
+        if(! messageRefMe.toString().equals(messageRefOther.toString()) ) {
+            messageRefMe.push().setValue(messageToSend);
+            messageRefOther.push().setValue(messageToSend);
+        }else{
+            Snackbar.make(toolbar, "You cant send a message to yourself !", Snackbar.LENGTH_LONG).show();
+        }
+        message.setText("");
     }
 
     private void getExtraBundle(){
@@ -108,7 +132,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void initialiseUI(){
-        send = (FloatingActionButton) findViewById(R.id.send);
+        send = (Button) findViewById(R.id.send);
         message = (EditText) findViewById(R.id.message);
         recyclerViewMessage = (RecyclerView) findViewById(R.id.recyclerView_message);
 
@@ -122,20 +146,6 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-    }
-
-    public static  class MessageViewHolder extends RecyclerView.ViewHolder{
-
-        TextView textView;
-        public MessageViewHolder(View itemView) {
-            super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.text_message);
-        }
-
-    }
 
 
 }

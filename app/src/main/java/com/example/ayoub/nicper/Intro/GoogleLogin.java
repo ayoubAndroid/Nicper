@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.ayoub.nicper.MainActivity.ActivityMap;
 import com.example.ayoub.nicper.MainActivity.MapsActivity;
 import com.example.ayoub.nicper.Object.AppGeneral.User;
 import com.example.ayoub.nicper.R;
@@ -72,7 +73,7 @@ public class GoogleLogin extends AppCompatActivity implements GoogleApiClient.On
                     // User is signed in
                     User userApp = new User(user.getEmail(), user.getDisplayName(), user.getDisplayName(), 0);
                     userReference.child(user.getUid()).child("profil").setValue(userApp);
-                    Intent intent = new Intent(GoogleLogin.this, MapsActivity.class);
+                    Intent intent = new Intent(GoogleLogin.this, ActivityMap.class);
                     startActivity(intent);
                 } else {
                     // User is signed out
