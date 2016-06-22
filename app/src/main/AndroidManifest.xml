@@ -63,7 +63,7 @@
             android:name=".MainActivity.ActivityMap"
             android:label="@string/title_activity_activity_map"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".ListMessage"></activity>
+        <activity android:name=".MainActivity.chat_message.ListMessage"></activity>
     </application>
 
 </manifest>

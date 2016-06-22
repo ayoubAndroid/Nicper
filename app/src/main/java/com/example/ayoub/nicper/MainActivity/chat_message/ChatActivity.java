@@ -42,8 +42,8 @@ public class ChatActivity extends AppCompatActivity {
     private String otherUsername = "";
 
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("data");
-    private DatabaseReference messageRefOther = root.child("users");
     private DatabaseReference messageRefMe = root.child("users");
+    private DatabaseReference messageRefOther = root.child("users");
 
     private List<Message> messageList = new ArrayList<>();
     private  MessagesAdapter mAdapter;
@@ -117,11 +117,14 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage(Message messageToSend) {
 
         if(! messageRefMe.toString().equals(messageRefOther.toString()) ) {
+            messageRefOther.child("lastMessage").setValue(messageToSend);
+            messageRefMe.child("lastMessage").setValue(messageToSend);
             messageRefMe.push().setValue(messageToSend);
             messageRefOther.push().setValue(messageToSend);
         }else{
             Snackbar.make(toolbar, "You cant send a message to yourself !", Snackbar.LENGTH_LONG).show();
         }
+        //Remove the precedent message
         message.setText("");
     }
 

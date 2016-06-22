@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ayoub.nicper.Intro.MyIntro;
+import com.example.ayoub.nicper.MainActivity.chat_message.ListMessage;
 import com.example.ayoub.nicper.MainActivity.place_info_map.PlaceMapInfo;
 import com.example.ayoub.nicper.MainActivity.post_address.ChooseMapAddressActivity;
 import com.example.ayoub.nicper.Object.Map.PlaceInfo;
@@ -266,7 +267,8 @@ public class ActivityMap extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-
+            Intent intent = new Intent(ActivityMap.this, ListMessage.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
