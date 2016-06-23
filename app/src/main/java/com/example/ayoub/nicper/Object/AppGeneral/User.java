@@ -36,6 +36,21 @@ public class User {
         return firstName;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setPost(int post) {
+        this.post = post;
+    }
 
     /**
      * Created by Admin on 03/06/2016.

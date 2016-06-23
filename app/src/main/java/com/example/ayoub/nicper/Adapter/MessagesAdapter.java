@@ -58,8 +58,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        String temp = mDataSet.get(position).getMeuserId();
-        if (temp != null && (mDataSet.get(position).getMeuserId()).equals(mId))
+        String temp = mDataSet.get(position).getUserId();
+        if (temp != null && (mDataSet.get(position).getUserId()).equals(mId))
             return CHAT_RIGHT;
 
         return CHAT_LEFT;

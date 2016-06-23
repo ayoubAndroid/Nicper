@@ -55,9 +55,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         if (viewType == CHAT_RIGHT) {
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_messages, parent, false);
-        } else {
+        } else if(viewType == CHAT_LEFT) {
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_messages, parent, false);
+        }else {
+            return null;
         }
 
         return new ViewHolder(v);
@@ -65,17 +67,26 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        String temp = mDataSet.get(position).getMeuserId();
-        if (temp != null && (mDataSet.get(position).getMeuserId()).equals(mId))
-            return CHAT_RIGHT;
+        Message message  = mDataSet.get(position);
+        String temp = message.getUserId();
 
-        return CHAT_LEFT;
+        if ((mDataSet.get(position).getUserId()).equals(mId))
+            return CHAT_RIGHT;
+        else {
+            return CHAT_LEFT;
+        }
+
+
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Message chat = mDataSet.get(position);
-        holder.mTextViewLastMessage.setText(chat.getMessage());
+        if(chat != null) {
+            if (chat.getMessage() != null) {
+                holder.mTextViewLastMessage.setText(chat.getMessage());
+            }
+        }
     }
 
     @Override

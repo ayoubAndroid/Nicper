@@ -1,5 +1,6 @@
 package com.example.ayoub.nicper.MainActivity.chat_message;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.ayoub.nicper.Adapter.InboxAdapter;
 import com.example.ayoub.nicper.Adapter.MessagesAdapter;
+import com.example.ayoub.nicper.GoogleAutoComplete.Log;
 import com.example.ayoub.nicper.Object.Message.Message;
 import com.example.ayoub.nicper.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,12 +26,12 @@ public class ListMessage extends AppCompatActivity {
 
 
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    private String userId = firebaseUser.getProviderId();
+    private String userId = firebaseUser.getUid();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("data");
-    private DatabaseReference messageRefMe = root.child("users").child(userId).child("messages");
+    private DatabaseReference messageRefMe = root.child("users").child(userId);
 
     private RecyclerView recyclerViewMessage;
-    private List<Message> messageList = new ArrayList<>();
+    private List<Message> messageList;
     private InboxAdapter mAdapter;
 
     @Override
@@ -37,10 +39,14 @@ public class ListMessage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_message);
 
+        messageList = new ArrayList<>();
+        messageList.clear();
+
         recyclerViewMessage = (RecyclerView) findViewById(R.id.recyclerView_message);
         recyclerViewMessage.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new InboxAdapter(messageList, userId);
         recyclerViewMessage.setAdapter(mAdapter);
+
 
         messageRefMe.addChildEventListener(new ChildEventListener() {
             @Override
@@ -48,8 +54,10 @@ public class ListMessage extends AppCompatActivity {
 
                 for(DataSnapshot child: dataSnapshot.getChildren()){
                     Message message  = child.child("lastMessage").getValue(Message.class);
-                    messageList.add(message);
-                    mAdapter.notifyDataSetChanged();
+                    if(message != null) {
+                        messageList.add(message);
+                        mAdapter.notifyItemInserted(messageList.size() - 1);
+                    }
                 }
             }
 

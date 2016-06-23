@@ -74,4 +74,40 @@ public class PlaceInfo implements Serializable {
     public String getUserId() {
         return userId;
     }
+
+    public void setPriceHour(double priceHour) {
+        this.priceHour = priceHour;
+    }
+
+    public void setPriceInfo(String priceInfo) {
+        this.priceInfo = priceInfo;
+    }
+
+    public void setTimeInfo(String timeInfo) {
+        this.timeInfo = timeInfo;
+    }
+
+    public void setListDay(List<String> listDay) {
+        this.listDay = listDay;
+    }
+
+    public void setListTime(List<String> listTime) {
+        this.listTime = listTime;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }
