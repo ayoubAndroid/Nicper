@@ -47,10 +47,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
         if (viewType == CHAT_RIGHT) {
             v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_chat_message_other, parent, false);
+                    .inflate(R.layout.item_chat_user, parent, false);
         } else {
             v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_chat_user, parent, false);
+                    .inflate(R.layout.item_chat_message_other, parent, false);
         }
 
         return new ViewHolder(v);
@@ -59,10 +59,12 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     @Override
     public int getItemViewType(int position) {
         String temp = mDataSet.get(position).getUserId();
-        if (temp != null && (mDataSet.get(position).getUserId()).equals(mId))
+        if (temp != null && (mDataSet.get(position).getUserId()).equals(mId)) {
             return CHAT_RIGHT;
+        }else{
+            return CHAT_LEFT;
+        }
 
-        return CHAT_LEFT;
     }
 
     @Override

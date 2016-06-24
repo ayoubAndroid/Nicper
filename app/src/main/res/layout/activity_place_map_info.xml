@@ -188,14 +188,14 @@
                 android:layout_below="@+id/cardView2"
                 android:layout_centerHorizontal="true"
                 app:rv_alpha="250"
-                android:id="@+id/rippleViewPick"
+                rv_centered="true"
                 app:rv_rippleDuration="135"
+                android:id="@+id/rippleViewPick"
                 app:rv_color="#00695C"
                 android:clickable="false"
                 android:layout_alignBottom="@+id/scrollView"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                rv_centered="true">
+                android:layout_alignParentStart="true">
                 <Button
 
                     android:layout_width="match_parent"

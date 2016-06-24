@@ -1,7 +1,6 @@
 package com.example.ayoub.nicper.MainActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,13 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ayoub.nicper.Intro.MyIntro;
 import com.example.ayoub.nicper.MainActivity.chat_message.ListMessage;
 import com.example.ayoub.nicper.MainActivity.place_info_map.PlaceMapInfo;
 import com.example.ayoub.nicper.MainActivity.post_address.ChooseMapAddressActivity;
 import com.example.ayoub.nicper.Object.Map.PlaceInfo;
 import com.example.ayoub.nicper.R;
-import com.example.ayoub.nicper.StringFormater;
+import com.example.ayoub.nicper.Object.StringFormater;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,11 +36,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,6 +66,7 @@ public class ActivityMap extends AppCompatActivity
     private HashMap<String, PlaceInfo> hmap = new HashMap<String, PlaceInfo>();
     private String latLng = "45P-70";
     private LatLng currentLocation;
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +85,15 @@ public class ActivityMap extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+
+        TextView textViewUsername = (TextView) header.findViewById(R.id.username);
+        textViewUsername.setText(firebaseUser.getDisplayName());
+        TextView textViewEmail = (TextView) header.findViewById(R.id.email);
+        textViewEmail.setText(firebaseUser.getEmail());
 
 
-
+//-------------------------------------------------------------------------------------------------------------------------------------
         getExtraCodeSnackBar();
         placeList = new ArrayList();
 
@@ -239,7 +244,6 @@ public class ActivityMap extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
         }
     }
 
@@ -265,24 +269,25 @@ public class ActivityMap extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Intent intent = null;
 
-        if (id == R.id.nav_camera) {
-            Intent intent = new Intent(ActivityMap.this, ListMessage.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        if (id == R.id.nav_message) {
+            intent = new Intent(ActivityMap.this, ListMessage.class);
+        }else if(id == R.id.map_view){
+        }else if (id == R.id.nav_post) {
+            intent = new Intent(ActivityMap.this,ChooseMapAddressActivity.class);
+        }else if (id == R.id.nav_share) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        if(intent != null){
+            startActivity(intent);
+        }else{
+            Snackbar.make(post, "Your are already in the map view", Snackbar.LENGTH_SHORT).show();
+        }
+
         return true;
     }
 

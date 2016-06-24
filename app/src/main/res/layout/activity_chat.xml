@@ -1,87 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F1F1F1"
-    tools:context=".MainActivity.chat_message.ChatActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/appBar"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appBar"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#F1F1F1"
+        tools:context=".MainActivity.chat_message.ChatActivity">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView_message"
-            android:layout_width="fill_parent"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_height="0dp"
-            android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll"
-            android:layout_weight="1">
-
-        </android.support.v7.widget.RecyclerView>
-
-
-
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:id="@+id/appBar"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:id="@+id/textInput"
-                android:layout_marginRight="2dp"
-                android:background="@color/white"
-                android:layout_height="fill_parent"
-                android:layout_weight="2.1">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:id="@+id/message"
-                    android:textSize="16dp"
-                    android:background="@null"
-                    android:hint="Message" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.AppBarLayout>
 
-            <com.rey.material.widget.Button
-                android:src="@drawable/ic_send_white_36dp"
-                android:layout_width="0dp"
-                android:layout_weight="0.9"
-                android:background="@color/colorAccent"
-                android:textColor="@color/white"
-                android:text="send"
-                android:layout_height="fill_parent"
-                android:id="@+id/send" />
 
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appBar"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_message"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_height="0dp"
+                android:stackFromBottom="true"
+                android:transcriptMode="alwaysScroll"
+                android:layout_weight="1">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:id="@+id/textInput"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/white"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="2.1">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="6dp"
+                        android:id="@+id/message"
+                        android:textSize="16dp"
+                        android:background="@null"
+                        android:hint="Message" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <com.rey.material.widget.Button
+                    android:src="@drawable/ic_send_white_36dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.9"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/white"
+                    android:text="send"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/send" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_activity_map"
+        app:menu="@menu/activity_map_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
+
+

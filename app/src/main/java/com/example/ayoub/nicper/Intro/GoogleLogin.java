@@ -1,5 +1,6 @@
 package com.example.ayoub.nicper.Intro;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ayoub.nicper.MainActivity.ActivityMap;
-import com.example.ayoub.nicper.MainActivity.MapsActivity;
 import com.example.ayoub.nicper.Object.AppGeneral.User;
 import com.example.ayoub.nicper.R;
 import com.google.android.gms.auth.api.Auth;
@@ -40,6 +40,9 @@ public class GoogleLogin extends AppCompatActivity implements GoogleApiClient.On
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     DatabaseReference userReference = root.child("data").child("users");
 
+    private static String ACCOUNT_PERMISSIONS[] = new String[]{
+            Manifest.permission.GET_ACCOUNTS
+    };
 
 
     @Override

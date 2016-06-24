@@ -2,8 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
     android:layout_margin="2dp">
+<com.andexert.library.RippleView
+    android:layout_width="match_parent"
+    android:id="@+id/rippleLayoutListMessage"
+    app:rv_color="@color/textDark"
+    app:rv_alpha="250"
+    rv_centered="true"
+    app:rv_rippleDuration="135"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/listMessageLayout"
+        android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -47,4 +61,6 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</com.andexert.library.RippleView>
 </RelativeLayout>

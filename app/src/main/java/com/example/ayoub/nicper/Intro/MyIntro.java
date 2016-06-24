@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.example.ayoub.nicper.MainActivity.ActivityMap;
-import com.example.ayoub.nicper.MainActivity.MapsActivity;
 import com.example.ayoub.nicper.R;
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.google.firebase.auth.FirebaseAuth;

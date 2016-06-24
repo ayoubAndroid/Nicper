@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.andexert.library.RippleView;
-import com.example.ayoub.nicper.MainActivity.MapsActivity;
+import com.example.ayoub.nicper.MainActivity.ActivityMap;
 import com.example.ayoub.nicper.Object.AppGeneral.User;
 import com.example.ayoub.nicper.dialog.TimePickerFragment;
 import com.example.ayoub.nicper.Object.Map.PlaceInfo;
@@ -249,7 +249,7 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
 
                 @Override
                 public void onDismissed(Snackbar snackbar, int event) {
-                    Intent intent = new Intent(PlaceInfoFormActivity.this, MapsActivity.class);
+                    Intent intent = new Intent(PlaceInfoFormActivity.this, ActivityMap.class);
                     startActivity(intent);
                 }
 
