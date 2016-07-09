@@ -58,14 +58,14 @@
             android:id="@+id/view3"
 
             android:layout_alignBottom="@+id/cardGoogle"
-            android:layout_alignRight="@+id/view4"
+            android:layout_alignRight="@+id/postButton"
             android:layout_marginBottom="84dp"
-            android:layout_alignEnd="@+id/view4" />
+            android:layout_alignEnd="@+id/postButton" />
         <android.support.design.widget.FloatingActionButton
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:src="@drawable/ic_add"
-            android:id="@+id/view4"
+            android:id="@+id/postButton"
             android:layout_alignBottom="@+id/cardGoogle"
             android:layout_alignRight="@+id/cardGoogle"
             android:layout_alignEnd="@+id/cardGoogle"

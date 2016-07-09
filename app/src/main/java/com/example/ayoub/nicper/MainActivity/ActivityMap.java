@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,10 +65,21 @@ public class ActivityMap extends AppCompatActivity
     private DatabaseReference countryRef;
     private boolean mapready = false;
     private List<PlaceInfo> placeList;
-    private HashMap<String, PlaceInfo> hmap = new HashMap<String, PlaceInfo>();
+    private HashMap<String, PlaceInfo> hmap = new HashMap<>();
     private String latLng = "45P-70";
     private LatLng currentLocation;
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    private BottomSheetBehavior bottomSheetBehavior;
+    private boolean sheetIsShowing = false;
+    private TextView owner;
+    private TextView price;
+    private TextView priceInfo;
+    private TextView availability;
+    private TextView availabilityInfo;
+    private PlaceInfo placeInfo;
+    private Button sendMessage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +87,12 @@ public class ActivityMap extends AppCompatActivity
         setContentView(R.layout.activity_map);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        initialiseSheet();
+        View bottomView = findViewById(R.id.bottomSheetBehavior);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomView);
+
+        owner.setText("ok2");
 
 
 
@@ -93,7 +112,7 @@ public class ActivityMap extends AppCompatActivity
         textViewEmail.setText(firebaseUser.getEmail());
 
 
-//-------------------------------------------------------------------------------------------------------------------------------------
+
         getExtraCodeSnackBar();
         placeList = new ArrayList();
 
@@ -106,7 +125,7 @@ public class ActivityMap extends AppCompatActivity
 
 
 
-        post = (FloatingActionButton) findViewById(R.id.view4);
+        post = (FloatingActionButton) findViewById(R.id.postButton);
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,9 +133,6 @@ public class ActivityMap extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
-
-
 
         countryRef = root.child("data").child("places").child(latLng);
         countryRef.addChildEventListener(new ChildEventListener() {
@@ -155,74 +171,31 @@ public class ActivityMap extends AppCompatActivity
 
             }
         });
+
+
+
+
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if(marker != null) {
-                    float container_height = getResources().getDimension(R.dimen.DIP_300);
 
-                    Projection projection = mMap.getProjection();
+                    String tempMarkerId = marker.getId();
+                    PlaceInfo placeInfo = hmap.get(tempMarkerId);
+                    setValueSheet(placeInfo);
 
-                    Point markerScreenPosition = projection.toScreenLocation(marker.getPosition());
-                    Point pointHalfScreenAbove = new Point(markerScreenPosition.x,(int) (markerScreenPosition.y - (container_height / 2)));
-
-                    LatLng aboveMarkerLatLng = projection.fromScreenLocation(pointHalfScreenAbove);
-
-                    marker.showInfoWindow();
-                    CameraUpdate center = CameraUpdateFactory.newLatLng(aboveMarkerLatLng);
-                    mMap.moveCamera(center);
-                    mMap.animateCamera(center);
-                    marker.showInfoWindow();
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     return true;
+                }else {
+                    return false;
                 }
-                return false;
             }
         });
 
-        // Setting a custom info window adapter for the google map
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-            // Use default InfoWindow frame
-            @Override
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            // Defines the contents of the InfoWindow
-            @Override
-            public View getInfoContents(Marker marker) {
-                View v = getLayoutInflater().inflate(R.layout.map_info, null);
-                v.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
 
 
 
-                String tempMarkerId = marker.getId();
-                PlaceInfo placeInfo = hmap.get(tempMarkerId);
-
-                // Getting reference to the TextView to set latitude
-                TextView username = (TextView) v.findViewById(R.id.username);
-                TextView price = (TextView) v.findViewById(R.id.price);
-                TextView dispoText = (TextView) v.findViewById(R.id.dispo);
-
-                username.setText(placeInfo.getUsername());
-                price.setText(""+placeInfo.getPriceHour()+ " per hour");
-
-                StringFormater stringFormater = new StringFormater();
-                String dispo = "";
-                List<String> listDayTemp = new ArrayList<String>(placeInfo.getListDay());
-                List<String> listTimeTemp = new ArrayList<String>(placeInfo.getListTime());
-                for(int i = 0; i < listDayTemp.size(); i++){
-                    String day = listDayTemp.get(i);
-                    String time = stringFormater.availabilityFormater(listTimeTemp.get(i));
-                    dispo += day+" : "+ time + "\n";
-                }
-                dispoText.setText(dispo);
-
-
-                return v;
-
-            }
-        });
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -236,15 +209,25 @@ public class ActivityMap extends AppCompatActivity
         });
 
 
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-        }
+        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
     }
 
 
@@ -291,6 +274,38 @@ public class ActivityMap extends AppCompatActivity
         return true;
     }
 
+
+    private void setValueSheet(PlaceInfo placeInfo) {
+        owner.setText(placeInfo.getUsername());
+        price.setText(""+placeInfo.getPriceHour()+" per hour");
+
+        String priceInfoString = placeInfo.getPriceInfo();
+        if(priceInfoString.isEmpty()){
+            priceInfo.setText("The owner did not create a price description");
+        }else{
+            priceInfo.setText(priceInfoString);
+        }
+
+        StringFormater stringFormater = new StringFormater();
+        String dispo = "";
+        List<String> listDayTemp = new ArrayList<String>(placeInfo.getListDay());
+        List<String> listTimeTemp = new ArrayList<String>(placeInfo.getListTime());
+        for(int i = 0; i < listDayTemp.size(); i++){
+            String day = listDayTemp.get(i);
+            String time = stringFormater.availabilityFormater(listTimeTemp.get(i));
+            dispo += day+" : "+ time + "\n";
+        }
+        availability.setText(dispo);
+
+        String availabilityInfoString = placeInfo.getTimeInfo();
+        if(availabilityInfoString.isEmpty()){
+            availabilityInfo.setText("The owner did not create a price description");
+        }else {
+            availabilityInfo.setText(availabilityInfoString);
+        }
+    }
+
+
     private void setUpToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -309,6 +324,16 @@ public class ActivityMap extends AppCompatActivity
         }
     }
 
+    private void initialiseSheet(){
+        // get the object from the MapActivity
+        owner = (TextView) findViewById(R.id.owner);
+        price = (TextView) findViewById(R.id.price);
+        priceInfo = (TextView) findViewById(R.id.infoPrice);
+        availability = (TextView) findViewById(R.id.availability);
+        availabilityInfo = (TextView) findViewById(R.id.infoAvailability);
+
+        sendMessage = (Button) findViewById(R.id.sendMessage);
+    }
 
 /*
 
@@ -347,8 +372,6 @@ public class ActivityMap extends AppCompatActivity
         this.mMap = googleMap;
         mapready = true;
 
-
-
         for(int z = 0; z < placeList.size(); z++){
             Marker marker  = createMarker(placeList.get(z));
             hmap.put(marker.getId(), placeList.get(z));
@@ -377,11 +400,6 @@ public class ActivityMap extends AppCompatActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
-
-    private void showMessage(String message){
-        Snackbar snack = Snackbar.make(toolbar, message, Snackbar.LENGTH_SHORT);
-        snack.setAction("Action", null).show();
     }
 
     Marker createMarker(PlaceInfo placeInfo){

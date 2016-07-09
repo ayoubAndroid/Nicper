@@ -118,7 +118,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     Message newMessage = dataSnapshot.getValue(Message.class);
                     messageList.add(newMessage);
                     recyclerViewMessage.scrollToPosition(messageList.size() - 1);
-                    mAdapter.notifyItemInserted(messageList.size() - 1);
                 }
             }
 
