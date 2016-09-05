@@ -25,7 +25,6 @@ import java.util.List;
  * Created by Admin on 15/06/2016.
  */
 public class PickTimeFragment extends DialogFragment {
-    Button selectTime, finish;
     android.support.v7.widget.Toolbar toolbar;
 
     CheckBox selectAll, morningTime, nightTime;
@@ -40,7 +39,7 @@ public class PickTimeFragment extends DialogFragment {
     private  List<CheckBox> checkBoxesDay = new ArrayList<>();
     private List<String> listDayChoosed = new ArrayList<>();
     private PlaceInfoFormActivity placeInfoFormActivity;
-    private RippleView rippleView, rippleView2;
+    private Button apply, finish;
 
 
     public PickTimeFragment(){}
@@ -48,8 +47,8 @@ public class PickTimeFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.select_time_fragment, container);
 
-        rippleView = (RippleView) view.findViewById(R.id.rippleViewPick);
-        rippleView2 = (RippleView) view.findViewById(R.id.rippleViewFinish);
+        apply = (Button) view.findViewById(R.id.buttonSelectDay);
+        finish = (Button) view.findViewById(R.id.finish);
 
         placeInfoFormActivity = (PlaceInfoFormActivity) getActivity();
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -57,16 +56,16 @@ public class PickTimeFragment extends DialogFragment {
         toolbar = (Toolbar) view.findViewById(R.id.toolbarFragment);
         toolbar.setTitle("Time Picker");
 
-        rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+        apply.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(RippleView rippleView) {
+            public void onClick(View view) {
                 checkSelection();
             }
         });
 
-        rippleView2.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+        finish.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(RippleView rippleView) {
+            public void onClick(View view) {
                 dismiss();
             }
         });
@@ -276,8 +275,8 @@ public class PickTimeFragment extends DialogFragment {
 
         //Show the finish button
         if(listDayChoosed.size() == 0){
-            rippleView.setVisibility(View.GONE);
-            rippleView2.setVisibility(View.VISIBLE);
+            apply.setVisibility(View.GONE);
+            finish.setVisibility(View.VISIBLE);
         }
 
     }

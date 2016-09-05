@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,22 +65,18 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
     private CheckBox samedi;
     private CheckBox dimanche;
     private Slider slider;
-    private Button buttonTime;
-    private Button postButton;
-    private android.widget.EditText placeInfoEdiText, priceInfoEditText;
-    private RippleView post, time;
+    private android.widget.EditText  priceInfoEditText;
+    private Button post, time;
 
 
     //Place information
     private com.example.ayoub.nicper.Object.Map.PlaceInfo placeInfo;
     private double lat, lng;
-    private String countryName;
     private int maxPost;
     private String username = "";
     private String userId = "";
     private double price = 0;
     private String infoPrice = "";
-    private String dispoInfo = "";
     private  List<String> listDay = new ArrayList<>();
     private List<String> listTime =  new ArrayList<>();
 
@@ -98,8 +95,8 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_info);
 
-        post = (RippleView) findViewById(R.id.rippleViewPost);
-        time = (RippleView) findViewById(R.id.rippleViewPick);
+        time = (Button) findViewById(R.id.chooseTime);
+        post = (Button) findViewById(R.id.postButton);
 
         userId = firebaseUser.getUid();
         userReference = userReference.child(firebaseUser.getUid()).child("profil");
@@ -129,19 +126,18 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
         checkBoxListner();
 
         newFragment = new TimePickerFragment();
-        time.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+        time.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(RippleView rippleView) {
+            public void onClick(View view) {
                 showFragment();
             }
         });
 
-        post.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+        post.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(RippleView rippleView) {
+            public void onClick(View view) {
                 price = slider.getValue();
                 infoPrice = priceInfoEditText.getText().toString();
-                dispoInfo = placeInfoEdiText.getText().toString();
                 Set set = hashMap.entrySet();
                 // Get an iterator
                 Iterator i = set.iterator();
@@ -150,7 +146,7 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
                     listDay.add(me.getKey().toString());
                     listTime.add(me.getValue().toString());
                 }
-                placeInfo = new PlaceInfo(price, infoPrice, dispoInfo, listDay, listTime, lat, lng, username, userId);
+                placeInfo = new PlaceInfo(price, infoPrice, listDay, listTime, lat, lng, username, userId);
                 postAddress(placeInfo);
             }
         });
@@ -259,7 +255,7 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
                 }
             });
 
-
+        changeFont();
 
     }
 
@@ -267,7 +263,6 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
         Bundle b = getIntent().getExtras();
         lat = b.getDouble("Lat");
         lng = b.getDouble("Long");
-        countryName = b.getString("Country");
         maxPost = b.getInt("Max");
     }
 
@@ -297,10 +292,6 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
         samedi = (CheckBox) findViewById(R.id.samedi);
         dimanche = (CheckBox) findViewById(R.id.dimache);
 
-        postButton = (Button) findViewById(R.id.postButton);
-        buttonTime = (Button) findViewById(R.id.chooseTime);
-
-        placeInfoEdiText = (android.widget.EditText) findViewById(R.id.placeInfo);
         priceInfoEditText = (android.widget.EditText) findViewById(R.id.priceInfo);
 
     }
@@ -380,5 +371,11 @@ public class PlaceInfoFormActivity extends AppCompatActivity{
         // 1dp/ms
         a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
         v.startAnimation(a);
+    }
+
+    private void changeFont(){
+        Typeface tf = Typeface.createFromAsset(getAssets(), "Geomanist-Regular.otf");
+        priceInfoEditText.setTypeface(tf);
+
     }
 }

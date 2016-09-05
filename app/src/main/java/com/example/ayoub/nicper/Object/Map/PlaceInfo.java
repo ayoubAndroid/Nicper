@@ -12,8 +12,7 @@ import java.util.Objects;
 @SuppressWarnings("serial")
 public class PlaceInfo implements Serializable {
     private double priceHour;
-    private String priceInfo;
-    private String timeInfo;
+    private String info;
     private List<String> listDay;
     private List<String> listTime;
     private double lat, lng;
@@ -25,11 +24,10 @@ public class PlaceInfo implements Serializable {
 
 
 
-    public PlaceInfo(double priceHour, String priceInfo, String timeInfo, List<String> listDay, List<String> listTime, double lat, double lng,
+    public PlaceInfo(double priceHour, String info, List<String> listDay, List<String> listTime, double lat, double lng,
                      String username, String userId) {
         this.priceHour = priceHour;
-        this.priceInfo = priceInfo;
-        this.timeInfo = timeInfo;
+        this.info = info;
         this.lat = lat;
         this.lng = lng;
         this.listDay = new ArrayList<>(listDay);
@@ -38,6 +36,8 @@ public class PlaceInfo implements Serializable {
         this.username = username;
 
     }
+
+
 
 
     public List<String> getListDay() {
@@ -52,13 +52,11 @@ public class PlaceInfo implements Serializable {
         return priceHour;
     }
 
-    public String getPriceInfo() {
-        return priceInfo;
+    public String getinfo() {
+        return info;
     }
 
-    public String getTimeInfo() {
-        return timeInfo;
-    }
+
 
     public double getLat() {
         return lat;
@@ -79,12 +77,8 @@ public class PlaceInfo implements Serializable {
         this.priceHour = priceHour;
     }
 
-    public void setPriceInfo(String priceInfo) {
-        this.priceInfo = priceInfo;
-    }
-
-    public void setTimeInfo(String timeInfo) {
-        this.timeInfo = timeInfo;
+    public void setinfo(String info) {
+        this.info = info;
     }
 
     public void setListDay(List<String> listDay) {

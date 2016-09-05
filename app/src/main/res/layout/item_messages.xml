@@ -3,64 +3,64 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff"
-    android:layout_margin="2dp">
-<com.andexert.library.RippleView
-    android:layout_width="match_parent"
-    android:id="@+id/rippleLayoutListMessage"
-    app:rv_color="@color/textDark"
-    app:rv_alpha="250"
-    rv_centered="true"
-    app:rv_rippleDuration="135"
-    android:layout_height="wrap_content">
+    android:background="#ffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/listMessageLayout"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_account"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_inbox_user"
         android:id="@+id/imageView3"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="12dp"
-        android:layout_alignParentTop="true"
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:layout_alignTop="@+id/username"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true" />
     <TextView
         android:layout_toRightOf="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_marginTop="16dp"
+        android:textSize="15dp"
         android:layout_height="wrap_content"
         android:text="Ayoub El Asry"
-        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginLeft="16dp"
+        android:textColor="#212121"
         android:id="@+id/username"
         />
     <TextView
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
+        android:layout_marginRight="12dp"
+        android:textSize="14dp"
+        android:textColor="@color/textDark"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:layout_below="@+id/username"
         android:text="Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing consectetur adipiscing..."
-        android:layout_alignBottom="@+id/imageView3"
+
         android:id="@+id/lastMessage"
+        android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/imageView3"
         android:layout_toEndOf="@+id/imageView3"
 
         />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_right"
-        android:layout_marginRight="16dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textSize="12dp"
+            android:text="3 days ago"
+            android:id="@+id/time"
+            android:layout_toRightOf="@+id/imageView3"
+            android:layout_toEndOf="@+id/imageView3"
+            android:layout_below="@+id/lastMessage"
+            android:layout_marginBottom="12dp"/>
     </RelativeLayout>
-</com.andexert.library.RippleView>
 </RelativeLayout>

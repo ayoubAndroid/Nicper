@@ -15,7 +15,6 @@
             android:icon="@drawable/ic_edit_location_black_18dp"
             android:title="Create a post" />
         <item
-            android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_account_circle_black_18dp"
             android:title="Profile" />
     </group>

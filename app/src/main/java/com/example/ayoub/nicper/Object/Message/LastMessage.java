@@ -10,16 +10,18 @@ public class LastMessage {
     private String username;
     private String otherUserId;
     private String otherUsername;
+    private Time time;
 
     public LastMessage() {
     }
 
-    public LastMessage(String message, String userId, String username, String otherUserId, String otherUsername) {
+    public LastMessage(String message, String userId, String username, String otherUserId, String otherUsername, Time time) {
         this.message = message;
         this.userId = userId;
         this.username = username;
         this.otherUserId = otherUserId;
         this.otherUsername = otherUsername;
+        this.time = time;
     }
 
     public String getOtherUsername() {
@@ -60,6 +62,10 @@ public class LastMessage {
 
     public String getMessage() {
         return message;
+    }
+
+    public Time getTime(){
+        return time;
     }
 }
 

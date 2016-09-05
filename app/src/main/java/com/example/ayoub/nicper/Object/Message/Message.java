@@ -8,14 +8,16 @@ public class Message {
     private String message;
     private String userId;
     private String username;
+    private Time time;
 
     public Message() {
     }
 
-    public Message(String message, String userId, String username) {
+    public Message(String message, String userId, String username, Time time) {
         this.message = message;
         this.userId = userId;
         this.username = username;
+        this.time = time;
     }
 
     public String getUsername() {
@@ -40,5 +42,8 @@ public class Message {
 
     public String getMessage() {
         return message;
+    }
+    public Time getTime(){
+        return time;
     }
 }

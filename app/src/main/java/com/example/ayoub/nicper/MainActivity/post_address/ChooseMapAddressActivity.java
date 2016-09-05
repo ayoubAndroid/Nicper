@@ -59,7 +59,7 @@ public class ChooseMapAddressActivity extends SampleActivityBase implements Plac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_choose_adress);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -84,11 +84,10 @@ public class ChooseMapAddressActivity extends SampleActivityBase implements Plac
 
 
         //Button post
-        final RippleView rippleView = (RippleView) findViewById(R.id.rippleView);
-        rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-
+        final Button button = (Button) findViewById(R.id.postAdress);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(RippleView rippleView) {
+            public void onClick(View view) {
                 if(latLngAddressChoose != null) {
 
                     userReference.child(firebaseUser.getUid()).child("profil").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -96,7 +95,7 @@ public class ChooseMapAddressActivity extends SampleActivityBase implements Plac
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             user = dataSnapshot.getValue(User.class);
                             maxPost = user.getPost();
-                            if (maxPost < 2 && !countryName.isEmpty()){
+                            if (maxPost < 1 && !countryName.isEmpty()){
                                 Intent intent = new Intent(ChooseMapAddressActivity.this, PlaceInfoFormActivity.class);
                                 Bundle b = new Bundle();
                                 b.putDouble("Lat", latLngAddressChoose.latitude);
@@ -119,7 +118,6 @@ public class ChooseMapAddressActivity extends SampleActivityBase implements Plac
                     showMessage("Please selected a location first");
                 }
             }
-
         });
 
     }
@@ -180,4 +178,3 @@ public class ChooseMapAddressActivity extends SampleActivityBase implements Plac
 
 
 }
-

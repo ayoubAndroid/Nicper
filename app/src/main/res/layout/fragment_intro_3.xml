@@ -1,58 +1,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:background="#FFFFFF">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="378dp"
-        android:id="@+id/relative"
-        android:background="#38498E">
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="160dp"
+            android:layout_height="200dp"
+            android:src="@drawable/deal"
+            android:layout_marginTop="50dp"
             android:layout_below="@+id/textView"
-            android:src="@drawable/map"
-            android:layout_above="@+id/imageView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:id="@+id/imageView2" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/vag3"
-            android:adjustViewBounds="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/imageView" />
-
-
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Geolocalisation"
+            android:text="Créer un post facilement"
             android:id="@+id/textView"
-            android:textColor="#ffffff"
+            android:textColor="@color/textDarkTitle"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="44dp" />
     </RelativeLayout>
 
     <TextView
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:textAlignment="center"
-        android:id="@+id/decription"
-        android:layout_below="@+id/relative"
+        android:layout_below="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Whit Fiper is very easy to post the place you want to rent. Just enter the address and other user will see it on the map."
+        android:text="Grace au système de chat de Park'em vous pouvez rentrer en contact avec les clients pour négocier ou leur offrir d'autres details"
         android:layout_centerHorizontal="true"
         android:textColor="#737373"
         android:textSize="16dp"/>

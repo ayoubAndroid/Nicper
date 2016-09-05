@@ -29,21 +29,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur iaculis lorem quis convallis vestibulum."
-        android:layout_centerHorizontal="true"
-        android:textSize="18dp"
-        android:gravity="center"
-        android:id="@+id/step"
-        android:layout_margin="20dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/linearLayout1"
-            android:layout_below="@+id/step"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content">
@@ -358,7 +349,6 @@
             android:layout_below="@+id/layoutDayWeek"
             android:background="#FAFAFA"
             android:layout_centerHorizontal="true"
-            android:id="@+id/layoutDayWeek2"
             android:orientation="horizontal">
             <com.rey.material.widget.CheckBox
                 style="@style/Material.Drawable.CheckBox"
@@ -393,20 +383,11 @@
     </RelativeLayout>
     </ScrollView>
 
-    <com.andexert.library.RippleView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        app:rv_alpha="250"
-        android:id="@+id/rippleViewPick"
-        app:rv_rippleDuration="135"
-        app:rv_color="#00695C"
-        android:clickable="false"
+
+    <Button
         android:layout_alignBottom="@+id/scrollView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        rv_centered="true">
-    <Button
         android:layout_width="match_parent"
         android:background="@color/colorAccent"
         android:textColor="#ffffff"
@@ -414,30 +395,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonSelectDay"
          />
-    </com.andexert.library.RippleView>
-    <com.andexert.library.RippleView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        app:rv_alpha="250"
+
+    <Button
         android:visibility="gone"
-        android:id="@+id/rippleViewFinish"
-        app:rv_rippleDuration="135"
-        app:rv_color="#00695C"
-        android:clickable="false"
+        android:layout_centerHorizontal="true"
         android:layout_alignBottom="@+id/scrollView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        rv_centered="true">
-    <Button
         android:layout_width="match_parent"
         android:background="@color/colorAccent"
         android:textColor="#ffffff"
         android:text="Finish"
         android:layout_height="wrap_content"
-        android:id="@+id/finish"
-        android:layout_alignBottom="@+id/scrollView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    </com.andexert.library.RippleView>
+        android:id="@+id/finish" />
 </RelativeLayout>

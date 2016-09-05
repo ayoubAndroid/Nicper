@@ -13,8 +13,7 @@
 
     <ImageView
         android:layout_width="60dp"
-        android:layout_height="50dp"
-        android:src="@drawable/image_header"/>
+        android:layout_height="50dp"/>
 
     <TextView
         android:layout_width="match_parent"
