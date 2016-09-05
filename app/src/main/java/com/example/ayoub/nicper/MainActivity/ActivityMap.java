@@ -58,16 +58,14 @@ public class ActivityMap extends AppCompatActivity
         GoogleApiClient.OnConnectionFailedListener {
 
     private static GoogleMap mMap;
-
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference countryRef;
     private boolean mapready = false;
     private List<PlaceInfo> placeList = new ArrayList<>();
     private HashMap<String, PlaceInfo> hmap = new HashMap<>();
     private String latLng = "45P-70";
-    private LatLng currentLocation = new LatLng(45.501689, -73.567256);
-
+    private LatLng currentLocation = new LatLng(45.501689, -73.567256);;
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView owner;
